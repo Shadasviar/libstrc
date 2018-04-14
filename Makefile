@@ -1,10 +1,4 @@
-ifeq ($(OS), Windows_NT)
-    DETECTED_OS := _WIN32
-else
-    DETECTED_OS := __unix__
-endif
-
-CC=sdcc --model-small -D$(DETECTED_OS)
+CC=sdcc --model-small 
 FLAGS= --code-loc 0x4000 --xram-loc 0x0000
 
 all: main.rel led.rel

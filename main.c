@@ -5,17 +5,16 @@
 #include <stdlib.h>
 #include <8051.h>
 #include "led.h"
-#include "cross_def.h"
 
 char c;
 char i = 0;
 char buf[5] = {0};
 
-void func_isr(void) interrupt 3 {
+void func_isr(void) __interrupt 3 {
 	led_update();
 }
 
-void serial_isr(void) interrupt 4{
+void serial_isr(void) __interrupt 4{
 	if (TI) TI = 0;
 	if(RI) {
         c = SBUF;
