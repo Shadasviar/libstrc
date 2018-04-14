@@ -1,8 +1,8 @@
 #include "led.h"
 #include <8051.h>
 
-xdata at 0x8000 unsigned char U15;
-xdata at 0xFFFF unsigned char U10;
+__xdata __at 0x8000 unsigned char U15;
+__xdata __at 0xFFFF unsigned char U10;
 
 #define SEG_A 0x02
 #define SEG_B 0x04

@@ -1,0 +1,61 @@
+/* Uladzislau Harbuz, Yakymyshyn Maxym
+ * sdcc 3.6.0 Linux throw USB to RS232 converter
+ */
+
+#include <stdlib.h>
+#include <8051.h>
+#include "led.h"
+#include "keyboard.h"
+
+<<<<<<< HEAD
+#if __unix__
+#define xdata __xdata
+#define at __at
+#define sfr __sfr
+#define sbit __sbit
+#define interrupt __interrupt
+#define critical __critical
+#endif
+
+extern char key;
+
+=======
+>>>>>>> 21c4fd321371c769b181f6df98dc52209b079cf5
+char c;
+char i = 0;
+char buf[5] = {0};
+
+void func_isr(void) __interrupt 3 {
+	led_update();
+<<<<<<< HEAD
+	get_key();
+=======
+}
+
+void serial_isr(void) __interrupt 4{
+	if (TI) TI = 0;
+	if(RI) {
+        c = SBUF;
+        if (i >= 3) {
+            buf[i] = c;
+            i = 0;
+            printOCT(atoi(buf));
+        } else {
+            buf[i++] = c;
+        }
+		RI = 0;
+    }
+>>>>>>> 21c4fd321371c769b181f6df98dc52209b079cf5
+}
+
+main (void){    
+	
+	
+    initLED();
+                
+    while (1)
+    {
+		 
+		printOCT(key);
+    }
+}
