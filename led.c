@@ -1,5 +1,6 @@
 #include "led.h"
 #include <8051.h>
+#include "cross_def.h"
 
 xdata at 0x8000 unsigned char U15;
 xdata at 0xFFFF unsigned char U10;

@@ -5,15 +5,7 @@
 #include <stdlib.h>
 #include <8051.h>
 #include "led.h"
-
-#if __unix__
-#define xdata __xdata
-#define at __at
-#define sfr __sfr
-#define sbit __sbit
-#define interrupt __interrupt
-#define critical __critical
-#endif
+#include "cross_def.h"
 
 char c;
 char i = 0;
