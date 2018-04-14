@@ -8,6 +8,8 @@
 #include "keyboard.h"
 
 
+extern char key;
+
 char c;
 char i = 0;
 char buf[5] = {0};
