@@ -1,7 +1,7 @@
 CC=sdcc --model-small 
 FLAGS= --code-loc 0x4000 --xram-loc 0x0000
 
-all: main.rel led.rel
+all: main.rel led.rel keyboard.rel
 	$(CC) $(FLAGS) $^
 
 %.rel: %.c

@@ -5,6 +5,10 @@
 #include <stdlib.h>
 #include <8051.h>
 #include "led.h"
+#include "keyboard.h"
+
+
+extern char key;
 
 char c;
 char i = 0;
@@ -12,28 +16,17 @@ char buf[5] = {0};
 
 void func_isr(void) __interrupt 3 {
 	led_update();
-}
-
-void serial_isr(void) __interrupt 4{
-	if (TI) TI = 0;
-	if(RI) {
-        c = SBUF;
-        if (i >= 3) {
-            buf[i] = c;
-            i = 0;
-            printOCT(atoi(buf));
-        } else {
-            buf[i++] = c;
-        }
-		RI = 0;
-    }
+	get_key();
 }
 
 main (void){    
+	
+	
     initLED();
                 
     while (1)
     {
-
+		 
+		printOCT(key);
     }
 }
