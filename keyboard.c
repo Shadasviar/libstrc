@@ -18,8 +18,6 @@ char convert(unsigned char k)
 	return -1;
 }
 
-
-
 char keys[4][4] =
 {
 	{19,15,11,7},
@@ -28,7 +26,7 @@ char keys[4][4] =
 	{20,16,12,8}
 };
 
-char key =-1;		
+char key = 0;		
 static char t = 0;	
 
 void get_key (void)
