@@ -6,27 +6,30 @@
 #include <8051.h>
 #include "led.h"
 #include "keyboard.h"
+#include "lcd.h"
+#include "strc51_time.h"
 
 
 extern char key;
 
-char c;
-char i = 0;
-char buf[5] = {0};
-
 void func_isr(void) __interrupt 3 {
-	led_update();
-	get_key();
+    led_update();
+    get_key();
+    counter_timer();
 }
 
 main (void){    
-	
-	
+    
+    char t = 0;
+    
     initLED();
+    init_LCD();
+    init_time();
                 
     while (1)
     {
-		 
-		printOCT(key);
+        printOCT(key++);
+        print_LCD_at((t++)%(10)+'0', 5, 0);
+        msleep(1000);
     }
 }
