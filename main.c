@@ -25,11 +25,15 @@ main (void){
     initLED();
     init_LCD();
     init_time();
-                
+                    
     while (1)
     {
         printOCT(key++);
-        print_LCD_at((t++)%(10)+'0', 5, 0);
-        msleep(1000);
+        clr_scr();
+        print_LCD_at('X', t, 0);
+        print_LCD_at('Y', t+1, 0);
+        print_LCD_at('I', t+2, 0);
+        if (++t > 16) t = 0;
+        sleep(1);
     }
 }

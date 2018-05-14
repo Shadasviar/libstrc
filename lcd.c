@@ -1,5 +1,6 @@
 #include <8051.h>
 #include "lcd.h"
+#include "strc51_time.h"
 
 __xdata __at 0x8000 unsigned char U12;
 
@@ -35,15 +36,22 @@ void print_LCD(unsigned char data)
 }
 
 void set_cursor_pos(char x, char y) {
-    char i = y == 0 ? 128 : 192;
+    char i = y == 0 ? 0x80 : 0xC0;
     i |= x;
     send_cmd(i);
+    msleep(2);
 }
 
 
 void print_LCD_at(char c, char x, char y) {
     set_cursor_pos(x,y);
     print_LCD(c);
+}
+
+
+void clr_scr() {
+    send_cmd(0x01);
+    msleep(3);
 }
 
 
@@ -57,14 +65,23 @@ void init_LCD()
     PCON = 0x80;
     IE =    0x88;
 
-
+    msleep(15);
     send_cmd_8(0x30);
+    msleep(5);
     send_cmd_8(0x30);
+    msleep(1);
     send_cmd_8(0x30);
+    msleep(5);
     send_cmd_8(0x20);
-    send_cmd(0x2F);
+    msleep(1);
+    send_cmd(0x2C);
+    msleep(1);
     send_cmd(0x08);
+    msleep(1);
     send_cmd(0x0C);
-    
+    msleep(1);
     send_cmd(0x06);
+    msleep(1);
+    send_cmd(0x14);
+    msleep(1);
 }
