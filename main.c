@@ -4,36 +4,32 @@
 
 #include <stdlib.h>
 #include <8051.h>
-#include "led.h"
-#include "keyboard.h"
-#include "lcd.h"
 #include "strc51_time.h"
+#include "lcd.h"
 
-
-extern char key;
 
 void func_isr(void) __interrupt 3 {
-    led_update();
-    get_key();
     counter_timer();
 }
 
-main (void){    
+main (void) {    
+   
+    char c = 0;
     
-    char t = 0;
-    
-    initLED();
-    init_LCD();
+    LcdInit();
     init_time();
-                    
-    while (1)
-    {
-        printOCT(key++);
-        clr_scr();
-        print_LCD_at('X', t, 0);
-        print_LCD_at('Y', t+1, 0);
-        print_LCD_at('I', t+2, 0);
-        if (++t > 16) t = 0;
+    LcdClrScr();
+    
+    while (1) {
+        ShowProgressTriangle(c++);
+        if (c >= 16) {
+            LcdClrScr();
+            LcdPrintHex16(c);
+        }
+        if (c >= 32) {
+            LcdClrScr();
+            c = 0;
+        }
         sleep(1);
     }
 }

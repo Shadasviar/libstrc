@@ -1,10 +1,9 @@
 #ifndef LCD_H
 #define LCD_H
 
-void print_LCD(unsigned char c);
-void init_LCD();
-void set_cursor_pos(char x, char y);
-void print_LCD_at(char c, char x, char y);
-void clr_scr();
+void LcdInit();
+void LcdClrScr();
+void ShowProgressTriangle(char idx);
+void LcdPrintHex16(int x);
 
 #endif /* LCD_H */
