@@ -26,10 +26,10 @@ char keys[4][4] =
 	{20,16,12,8}
 };
 
-char key = 0;		
-static char t = 0;	
+static char key = 0;
+static char t = 0;
 
-void get_key (void)
+void scan_keyboard(void)
 {	
 	U15 = column[t];
 	
@@ -41,6 +41,6 @@ void get_key (void)
    
 } 
 
-
-
-
+char get_key (void) {
+    return key;
+}

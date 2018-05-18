@@ -4,7 +4,8 @@
 /* sleep in milliseconds. 
  * The MOST PRECISIOUS ARE SECONDS! 
  * This function has VERY LARGE time speed unprecision.
- * This function is UNSAFE every near 10min time part.
+ * use it only for short times, 
+ * if need more then some seconds use sleep.
  */
 void msleep(int n);
 
@@ -17,5 +18,22 @@ void init_time();
  * catcher function. 
  */
 void counter_timer();
+
+/* Get only milliseconds in the current second. */
+int getmsecs();
+long getsecs();
+
+struct time {
+    long secs;
+    int msecs;
+};
+
+void gettime(struct time* out);
+
+/* Return 1 if a > b, 0 if a == b, -1 if a < b */
+int cmp_time(struct time *a, struct time *b);
+
+/* Return a - b */
+void diff_time(struct time *a, struct time *b, struct time *out);
 
 #endif /* TIME_H */
