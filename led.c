@@ -37,12 +37,12 @@ __xdata __at 0xFFFF unsigned char U10;
 #define OCT_DIGIT(x,n) ((x & 07 << (3*n)) >> (3*n))
 #define LED_MAX_NUM 07777 
 
-char digits[] = {LED_0, LED_1, LED_2, LED_3, LED_4, LED_5, LED_6, LED_7};
+static const char digits[] = {LED_0, LED_1, LED_2, LED_3, LED_4, LED_5, LED_6, LED_7};
 
-char content_LED[4];
+static char content_LED[4];
 const char current_LED[4] = { 0xdf, 0xef, 0x7f, 0xbf };
 
-char t = 0;
+static volatile char t = 0;
 
 void led_update (void) {
     if (t >= 4) t = 0;

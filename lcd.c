@@ -2,9 +2,10 @@
 #include "lcd.h"
 #include "strc51_time.h"
 
-static char E = 0x08;
-static char RS = 0x04;
+static const char E = 0x08;
+static const char RS = 0x04;
 
+#define GET_OCTET(x,n) ((x & (0xF << 4*n)) >> (4*n)))
 
 static void send_cmd_8(unsigned char cmd)
 {
@@ -76,22 +77,32 @@ void LcdPrintHex16(unsigned int x) {
     msleep(1);
     print_LCD('x');
     msleep(1);
-    print_LCD(octet_to_hex_char((x & 0xF000) >> 12));
+    print_LCD(octet_to_hex_char(GET_OCTET(x,3));
     msleep(1);
-    print_LCD(octet_to_hex_char((x & 0x0F00) >> 8));
+    print_LCD(octet_to_hex_char(GET_OCTET(x,2));
     msleep(1);
-    print_LCD(octet_to_hex_char((x & 0x00F0) >> 4));
+    print_LCD(octet_to_hex_char(GET_OCTET(x,1));
     msleep(1);
-    print_LCD(octet_to_hex_char((x & 0x000F) >> 0));
+    print_LCD(octet_to_hex_char(GET_OCTET(x,0));
     msleep(1);
 }
 
-
-void LcdInit()
-{
+static void init_triangle() {
     char i = 0;
     char j = 0;
     
+    for (j = 0; j < 8; ++j) {
+        send_cmd(0x40 | (j*8));
+        msleep(2);
+        for (i = 0; i < 8; ++i) {
+            print_LCD(j >= 7-i ? 0x1F : 0x00);
+            msleep(1);
+        }
+    }
+}
+
+void LcdInit()
+{    
     SCON = 0x50;
     TMOD &= 0x0F;
     TMOD |= 0x20; 
@@ -120,12 +131,5 @@ void LcdInit()
     send_cmd(0x14);
     msleep(1);
     
-    for (j = 0; j < 8; ++j) {
-        send_cmd(0x40 | (j*8));
-        msleep(2);
-        for (i = 0; i < 8; ++i) {
-            print_LCD(j >= 7-i ? 0x1F : 0x00);
-            msleep(1);
-        }
-    }
+    init_triangle();
 }

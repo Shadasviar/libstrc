@@ -1,10 +1,10 @@
 #include "strc51_time.h"
 #include <8051.h>
 
-static long posixtime = 0;
+static volatile long posixtime = 0;
 
 /* Used only for msleep because it can store max 10 minuts.*/
-static int milliseconds = 0;
+static volatile int milliseconds = 0;
 static volatile int mcounter = 0;
 
 /* Hz */
