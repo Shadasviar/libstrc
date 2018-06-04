@@ -1,3 +1,4 @@
+#include "defines.h"
 #include "strc51_time.h"
 #include <8051.h>
 
@@ -13,13 +14,13 @@ static const long cnt_freq = 3640;
 
 void msleep(int n) {
     mcounter = 0;
-    while(mcounter < n) __asm__("nop");
+    while(mcounter < n) __asm__(nop);
 }
 
 /* sleep in seconds */
 void sleep(int n) {
     long targettime = posixtime + n;
-    while(posixtime < targettime) __asm__("nop");
+    while(posixtime < targettime) __asm__(nop);
 }
 
 void init_time() {

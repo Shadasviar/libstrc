@@ -1,3 +1,4 @@
+#include "defines.h"
 #include <8051.h>
 #include "lcd.h"
 #include "strc51_time.h"
@@ -24,14 +25,14 @@ static void send_cmd(unsigned char cmd)
     P1=((cmd << 4) & 0xf0) & !E;
 }
 
-void print_LCD(unsigned char data)
+void print_LCD(unsigned char mdata)
 {
-    P1=(data & 0xf0) | RS;
-    P1=((data & 0xf0) | E) | RS;
-    P1=((data & 0xf0) & !E) | RS;
-    P1=((data << 4) & 0xf0) | RS;
-    P1=(((data << 4) & 0xf0) | E) | RS;
-    P1=(((data << 4) & 0xf0) & !E) | RS;
+    P1=(mdata & 0xf0) | RS;
+    P1=((mdata & 0xf0) | E) | RS;
+    P1=((mdata & 0xf0) & !E) | RS;
+    P1=((mdata << 4) & 0xf0) | RS;
+    P1=(((mdata << 4) & 0xf0) | E) | RS;
+    P1=(((mdata << 4) & 0xf0) & !E) | RS;
 }
 
 void set_cursor_pos(char x, char y) {

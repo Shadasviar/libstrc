@@ -1,3 +1,4 @@
+#include "defines.h"
 #include <8051.h>
 #include "keyboard.h"
 
